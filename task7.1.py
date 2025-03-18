@@ -14,6 +14,6 @@ for table in tables:
 
     for row in rows:
         print(row)
-    print("------------------------")
+    print("-----------------------------------------------------")
 
 conn.close()
