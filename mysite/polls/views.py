@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .models import Question
 from .forms import RegistrationForm, UserLoginForm
+from .serializers import QuestionSerializer
 
 
 def question_list_view(request):
@@ -42,3 +45,10 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+class QuestionListView(APIView):
+    def get(self, request):
+        questions = Question.objects.all()
+        serializer = QuestionSerializer(questions, many=True)
+        return Response(serializer.data)
